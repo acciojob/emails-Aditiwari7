@@ -86,7 +86,7 @@ public class Gmail extends Email {
         int count = 0;
         for(int i=0; i< Inbox.size(); i++){
             Mail m = Inbox.get(i);
-            if(m.date.compareTo(start) > 0 && m.date.compareTo(end) < 0){
+            if(m.date.compareTo(start) >= 0 && m.date.compareTo(end) <= 0){
                 count++;
             }
         }
@@ -98,16 +98,16 @@ public class Gmail extends Email {
         return Inbox.size();
     }
 
-    public int getTrashSize(){
+    public int getTrashSize() {
         // Return number of mails in Trash
         return Trash.size();
+    }
 
     public void emptyTrash(){
-        // clear all mails in the trash
         Trash.clear();
     }
 
-    public int getInboxCapacity() {
+    public int getInboxCapacity(){
         // Return the maximum number of mails that can be stored in the inbox
         return inboxCapacity;
     }
