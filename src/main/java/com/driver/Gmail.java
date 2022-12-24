@@ -35,30 +35,29 @@ public class Gmail extends Email {
     public void deleteMail(String message){
         // Each message is distinct
         // If the given message is found in any mail in the inbox, move the mail to trash, else do nothing
-        int flag = 0;
         for(int i=0; i< Inbox.size(); i++){
             Mail currmail = Inbox.get(i);
             if(currmail.message.equals(message)){
                 Inbox.remove(i);
-                flag = 1;
+                Trash.add(currmail);
             }
         }
 
-        if(flag == 0){
-            for(int i=0; i<Trash.size(); i++){
-                Mail currmail = Trash.get(i);
-                if(currmail.message.equals(message)){
-                    Trash.remove(i);
-                }
-            }
-        }
+//        if(flag == 0){
+//            for(int i=0; i<Trash.size(); i++){
+//                Mail currmail = Trash.get(i);
+//                if(currmail.message.equals(message)){
+//                    Trash.remove(i);
+//                }
+//            }
+//        }
     }
 
     public String findLatestMessage(){
         // If the inbox is empty, return null
         // Else, return the message of the latest mail present in the inbox
         int Size = Inbox.size();
-        if(Size == 0){
+        if(Size < 1){
             return null;
         }
         else{
@@ -98,16 +97,17 @@ public class Gmail extends Email {
         return Inbox.size();
     }
 
-    public int getTrashSize() {
+    public int getTrashSize(){
         // Return number of mails in Trash
         return Trash.size();
     }
 
     public void emptyTrash(){
+        // clear all mails in the trash
         Trash.clear();
     }
 
-    public int getInboxCapacity(){
+    public int getInboxCapacity() {
         // Return the maximum number of mails that can be stored in the inbox
         return inboxCapacity;
     }
