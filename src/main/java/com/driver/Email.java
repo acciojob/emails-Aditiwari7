@@ -28,26 +28,26 @@ public class Email {
 
         if(!password.equals(newPassword)){
             if(newPassword.length()>=8){
-                int UCL = 0;
-                int LCL = 0;
-                int digit = 0;
-                int special = 0;
+                Boolean UCL = false;
+                Boolean LCL = false;
+                Boolean digit = false;
+                Boolean special = false;
                 for(int i=0; i<newPassword.length(); i++){
                     char ch = newPassword.charAt(i);
-                    if(ch>='A' && ch<='Z'){
-                        UCL++;
+                    if(Character.isUpperCase(ch)){
+                        UCL = true;
                     }
-                    else if(ch>='a' && ch<='z'){
-                        LCL++;
+                    else if(Character.isLowerCase(ch)){
+                        LCL = true;
                     }
-                    else if(ch>='0' && ch<='9'){
-                        digit++;
+                    else if(Character.isDigit(ch)){
+                        digit = true;
                     }
-                    else {
-                        special++;
+                    else if(!Character.isWhitespace(ch)){
+                        special = true;
                     }
                 }
-                if(UCL>0 && LCL>0 && digit>0 && special >0 ){
+                if(UCL==true && LCL==true && digit==true && special==true){
                     this.password = newPassword;
                 }
             }
