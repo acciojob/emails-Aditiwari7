@@ -26,7 +26,13 @@ public class Email {
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
 
-        if(oldPassword.equals(newPassword)){
+//        if(oldPassword.equals(this.password)){
+//            if(newPassword.length() >= 8 && newPassword.matches(".[A-Z].") && newPassword.matches(".[a-z].") && newPassword.matches(".[0-9].") && newPassword.matches(".[^A-Za-z0-9].")){
+//                this.password = newPassword;
+//            }
+//        }
+
+        if(oldPassword.equals(this.password)){
             if(newPassword.length()>=8){
                 Boolean UCL = false;
                 Boolean LCL = false;
