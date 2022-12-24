@@ -43,7 +43,7 @@ public class Email {
                     else if(Character.isDigit(ch)){
                         digit = true;
                     }
-                    else if(!Character.isWhitespace(ch)){
+                    else{
                         special = true;
                     }
                 }
