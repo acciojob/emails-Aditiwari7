@@ -26,38 +26,31 @@ public class Email {
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
 
-        if(!oldPassword.equals(newPassword)){
-            if(checkcriteria(newPassword)){
-                this.password = newPassword;
+        if(!password.equals(newPassword)){
+            if(newPassword.length()>=8){
+                int UCL = 0;
+                int LCL = 0;
+                int digit = 0;
+                int special = 0;
+                for(int i=0; i<newPassword.length(); i++){
+                    char ch = newPassword.charAt(i);
+                    if(ch>='A' && ch<='Z'){
+                        UCL++;
+                    }
+                    else if(ch>='a' && ch<='z'){
+                        LCL++;
+                    }
+                    else if(ch>='0' && ch<='9'){
+                        digit++;
+                    }
+                    else {
+                        special++;
+                    }
+                }
+                if(UCL>0 && LCL>0 && digit>0 && special >0 ){
+                    this.password = newPassword;
+                }
             }
         }
-    }
-
-    private boolean checkcriteria(String currPswrd){
-        boolean checkUCLetter = false;
-        boolean checkLCLetter = false;
-        boolean checkDigit = false;
-        boolean checkSpecialChar = false;
-
-        if(currPswrd.length() < 8) return false;
-        for(int i=0; i<currPswrd.length(); i++){
-            char ch = currPswrd.charAt(i);
-            if(Character.isLetter(ch)){
-                if(Character.isLowerCase(ch)){
-                    checkLCLetter = true;
-                }
-                if(Character.isUpperCase(ch)){
-                    checkUCLetter = true;
-                }
-            }
-            else if(Character.isDigit(ch)){
-                checkDigit = true;
-            } else if(!Character.isWhitespace(ch)) {
-                checkSpecialChar = true;
-            }
-        }
-        if(checkUCLetter==true && checkLCLetter==true && checkDigit==true && checkSpecialChar==true)
-            return true;
-        return false;
     }
 }
