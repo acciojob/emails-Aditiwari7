@@ -40,7 +40,6 @@ public class Email {
         boolean checkSpecialChar = false;
 
         if(currPswrd.length() < 8) return false;
-
         for(int i=0; i<currPswrd.length(); i++){
             char ch = currPswrd.charAt(i);
             if(Character.isLetter(ch)){
@@ -57,8 +56,7 @@ public class Email {
                 checkSpecialChar = true;
             }
         }
-
-        if((checkLCLetter==true && checkUCLetter==true) && (checkDigit==true && checkSpecialChar==true))
+        if(checkUCLetter==true && checkLCLetter==true && checkDigit==true && checkSpecialChar==true)
             return true;
         return false;
     }

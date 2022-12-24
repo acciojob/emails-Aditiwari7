@@ -10,6 +10,7 @@ public class Gmail extends Email {
     //Inbox: Stores mails. Each mail has date (Date), sender (String), message (String). It is guaranteed that message is distinct for all mails.
     //Trash: Stores mails. Each mail has date (Date), sender (String), message (String)
     List<String> InboxList;
+    List<String> senderList;
     Map<String, Date> mapInbox;
     Map<String, Date> mapTrash;
 
@@ -17,6 +18,7 @@ public class Gmail extends Email {
         super(emailId);
         this.inboxCapacity = inboxCapacity;
 
+        senderList = new ArrayList<>();
         InboxList = new ArrayList<>();
         mapInbox = new TreeMap<>();
         mapTrash = new TreeMap<>();
@@ -28,24 +30,30 @@ public class Gmail extends Email {
         // 1. Each mail in the inbox is distinct.
         // 2. The mails are received in non-decreasing order. This means that the date of a new mail is greater than equal to the dates of mails received already.
 
-        InboxList.add(message);
-        mapInbox.put(message, date);
-
         if(InboxList.size() == inboxCapacity){
             String txt = InboxList.remove(0);
             Date dte = mapInbox.get(txt);
-            mapInbox.remove(txt);
 
+            mapInbox.remove(txt);
             mapTrash.put(txt, dte);
         }
+
+        senderList.add(sender);
+        InboxList.add(message);
+        mapInbox.put(message, date);
     }
 
     public void deleteMail(String message){
         // Each message is distinct
         // If the given message is found in any mail in the inbox, move the mail to trash, else do nothing
-        if(InboxList.contains(message)){
+        int index = InboxList.indexOf(message);
+        if(index >= 0){
+            senderList.remove(index);
             InboxList.remove(message);
             mapInbox.remove(message);
+        }
+        else if(mapTrash.containsKey(message)){
+            mapTrash.remove(message);
         }
     }
 
@@ -81,11 +89,10 @@ public class Gmail extends Email {
         }
         return count;
     }
-//    Map.Entry entry : tm.entrySet() Object value = entry.getValue();
 
     public int getInboxSize(){
         // Return number of mails in inbox
-        return InboxList.size();
+        return mapInbox.size();
     }
 
     public int getTrashSize(){
